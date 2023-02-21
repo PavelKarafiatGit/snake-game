@@ -22,6 +22,9 @@ apple.color("red")
 apple.penup()
 apple.goto(100, 100)
 
+# Body parts
+body_parts = []
+
 # Functions
 def move():
     if head.direction == "up":
@@ -55,11 +58,25 @@ screen.onkeypress(move_left, "a")
 
 # Main loop
 while True:
-    move()
     if head.distance(apple) < 20:
         x = random.randint(-290, 290)
         y = random.randint(-290, 290)
         apple.goto(x, y)
+
+        # Adding body parts
+        new_body_part = Turtle("square")
+        new_body_part.speed(0)
+        new_body_part.color("white")
+        new_body_part.penup()
+        body_parts.append(new_body_part)
+
+    if len(body_parts) > 0:
+        x = head.xcor()
+        y = head.ycor()
+        body_parts[0].goto(x, y)     
+    
+    move()
+
     time.sleep(0.1)
     screen.update()
 
