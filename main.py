@@ -1,5 +1,6 @@
 from turtle import Turtle, Screen
 import time
+import random
 
 screen = Screen()
 screen.bgcolor("grey")
@@ -14,6 +15,12 @@ head.speed(0)
 head.penup()
 head.goto(0, 0)
 head.direction = "stop"
+
+# Apple
+apple = Turtle("circle")
+apple.color("red")
+apple.penup()
+apple.goto(100, 100)
 
 # Functions
 def move():
@@ -49,6 +56,10 @@ screen.onkeypress(move_left, "a")
 # Main loop
 while True:
     move()
+    if head.distance(apple) < 20:
+        x = random.randint(-290, 290)
+        y = random.randint(-290, 290)
+        apple.goto(x, y)
     time.sleep(0.1)
     screen.update()
 
