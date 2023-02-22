@@ -59,8 +59,8 @@ screen.onkeypress(move_left, "a")
 # Main loop
 while True:
     if head.distance(apple) < 20:
-        x = random.randint(-290, 290)
-        y = random.randint(-290, 290)
+        x = random.randint(-280, 280)
+        y = random.randint(-280, 280)
         apple.goto(x, y)
 
         # Adding body parts
@@ -69,6 +69,12 @@ while True:
         new_body_part.color("white")
         new_body_part.penup()
         body_parts.append(new_body_part)
+
+    for index in range(len(body_parts) - 1, 0, -1):
+        x = body_parts[index - 1].xcor()
+        y = body_parts[index - 1].ycor()
+        body_parts[index].goto(x, y)
+
 
     if len(body_parts) > 0:
         x = head.xcor()
