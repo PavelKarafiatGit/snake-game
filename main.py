@@ -70,7 +70,7 @@ while True:
         for one_body_part in body_parts:
             one_body_part.goto(1000, 1000)
 
-        # Emptying the list of body parts
+        # Clearing the list of body parts
         body_parts.clear()
 
     if head.distance(apple) < 20:
@@ -97,6 +97,20 @@ while True:
     
     move()
 
+    # Head-to-body collision control
+    for one_body_part in body_parts:
+        if one_body_part.distance(head) < 20:
+            time.sleep(2)
+            head.goto(0, 0)
+            head.direction = "stop"
+
+            # Hiding body parts
+            for one_body_part in body_parts:
+                one_body_part.goto(1000, 1000)
+
+            # Clearing the list of body parts
+            body_parts.clear()
+         
     time.sleep(0.1)
     
 screen.exitonclick()
