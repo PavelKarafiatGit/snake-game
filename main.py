@@ -41,13 +41,17 @@ def move():
         head.setx(x - 20)     
 
 def move_up():
-    head.direction = "up"
+    if head.direction != "down":
+        head.direction = "up"
 def move_down():
-    head.direction = "down"
+    if head.direction != "up":
+        head.direction = "down"
 def move_right():
-    head.direction = "right"
+    if head.direction != "left":
+        head.direction = "right"
 def move_left():
-    head.direction = "left"
+    if head.direction != "right":
+        head.direction = "left"
 
 # Pressing a key
 screen.listen()
