@@ -58,6 +58,21 @@ screen.onkeypress(move_left, "a")
 
 # Main loop
 while True:
+    screen.update()
+
+    # Canvas border collision check
+    if head.xcor() > 280 or head.xcor() < -280 or head.ycor() > 280 or head.ycor() < -280:
+        time.sleep(2)
+        head.goto(0, 0)
+        head.direction = "stop"
+
+        # Hiding body parts
+        for one_body_part in body_parts:
+            one_body_part.goto(1000, 1000)
+
+        # Emptying the list of body parts
+        body_parts.clear()
+
     if head.distance(apple) < 20:
         x = random.randint(-280, 280)
         y = random.randint(-280, 280)
@@ -75,7 +90,6 @@ while True:
         y = body_parts[index - 1].ycor()
         body_parts[index].goto(x, y)
 
-
     if len(body_parts) > 0:
         x = head.xcor()
         y = head.ycor()
@@ -84,7 +98,5 @@ while True:
     move()
 
     time.sleep(0.1)
-    screen.update()
-
-
+    
 screen.exitonclick()
