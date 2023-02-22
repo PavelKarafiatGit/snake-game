@@ -2,6 +2,9 @@ from turtle import Turtle, Screen
 import time
 import random
 
+score = 0
+highest_score = 0
+
 screen = Screen()
 screen.bgcolor("grey")
 screen.title("Snake Game")
@@ -21,6 +24,15 @@ apple = Turtle("circle")
 apple.color("red")
 apple.penup()
 apple.goto(100, 100)
+
+# Score
+score_sign = Turtle("square")
+score_sign.speed(0)
+score_sign.color("yellow")
+score_sign.penup()
+score_sign.hideturtle()
+score_sign.goto(0, 260)
+score_sign.write("Score: 0                           Highest score: 0", align="center", font=("Arial", 18))
 
 # Body parts
 body_parts = []
@@ -77,6 +89,12 @@ while True:
         # Clearing the list of body parts
         body_parts.clear()
 
+        # Reset score
+        score = 0 
+        score_sign.clear()
+        score_sign.write(f"Score: {score}                           Highest score: {highest_score}", align="center", font=("Arial", 18))
+
+    # Head collision with an apple - the snake eats the apple
     if head.distance(apple) < 20:
         x = random.randint(-280, 280)
         y = random.randint(-280, 280)
@@ -89,6 +107,13 @@ while True:
         new_body_part.penup()
         body_parts.append(new_body_part)
 
+        # Score
+        score += 10
+        if score > highest_score:
+            highest_score = score
+        score_sign.clear()
+        score_sign.write(f"Score: {score}                           Highest score: {highest_score}", align="center", font=("Arial", 18))
+
     for index in range(len(body_parts) - 1, 0, -1):
         x = body_parts[index - 1].xcor()
         y = body_parts[index - 1].ycor()
@@ -97,7 +122,7 @@ while True:
     if len(body_parts) > 0:
         x = head.xcor()
         y = head.ycor()
-        body_parts[0].goto(x, y)     
+        body_parts[0].goto(x, y)    
     
     move()
 
@@ -114,6 +139,11 @@ while True:
 
             # Clearing the list of body parts
             body_parts.clear()
+
+             # Reset score
+            score = 0 
+            score_sign.clear()
+            score_sign.write(f"Score: {score}                           Highest score: {highest_score}", align="center", font=("Arial", 18))
          
     time.sleep(0.1)
     
